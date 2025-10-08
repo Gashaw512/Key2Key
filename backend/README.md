@@ -342,3 +342,27 @@ This table outlines **each file/folder** in the project, what it is responsible 
 | `docker-compose.yml`                    | Compose services                                                                         | Define app, DB, Redis, Celery |
 | `alembic.ini`                           | Alembic config                                                                           | Setup migration tool for DB |
 
+# 📋 Task Assignment & Schedule for Two Developers
+
+This table organizes the full project tasks, assigns them to **2 developers**, includes **deliverables**, **estimated duration**, **dependencies**, and **start/end weeks**.
+
+| Task # | Phase | Task / Deliverable                                     | Owner        | Duration | Dependencies                            | Start Week | End Week |
+|--------|-------|--------------------------------------------------------|-------------|----------|----------------------------------------|------------|----------|
+| 1      | Setup | Initialize FastAPI app & `main.py`                     | Dev 1       | 1 week   | None                                    | 1          | 1        |
+| 2      | Setup | Setup core/config, security, jwt                       | Dev 2       | 1 week   | None                                    | 1          | 1        |
+| 3      | Setup | Configure DB engine & session (`core/database.py`)     | Dev 1       | 1 week   | Task 1,2                                | 1          | 1        |
+| 4      | Setup | Configure logging & middleware (`core/logging_config.py`, `middleware.py`) | Dev 2 | 1 week | Task 2                                   | 1          | 1        |
+| 5      | Core Entities | Create models & schemas (`user`, `broker`, `listing`) | Dev 1 | 1 week | Task 3                                   | 2          | 2        |
+| 6      | Core Entities | Create remaining models & schemas (`vehicle`, `property`, `payment`, `chat`, `notification`, `verification`, `analytics`, `audit_log`) | Dev 2 | 1 week | Task 3                                   | 2          | 2        |
+| 7      | Core Entities | Setup DB migrations & initial seed (`db/migrations`, `init_db.py`) | Dev 1 | 1 week | Task 5,6                                | 3          | 3        |
+| 8      | Auth | Implement Auth service & endpoints (`auth_service.py`, `endpoints/auth.py`) | Dev 2 | 1 week | Task 5,6                                | 3          | 3        |
+| 9      | User | Implement User CRUD service & endpoints (`user_service.py`, `endpoints/users.py`) | Dev 1 | 1 week | Task 5                                   | 3          | 3        |
+| 10     | Marketplace | Implement Listing, Vehicle, Property services (`listing_service.py`, `vehicle_service.py`, `property_service.py`) | Dev 2 | 1 week | Task 6                                   | 4          | 4        |
+| 11     | Payments | Integrate Payment gateway (`payment_service.py`, `core/payments.py`, `endpoints/payments.py`) | Dev 1 | 1 week | Task 10                                  | 4          | 4        |
+| 12     | Enhancements | Add Chat & Notification modules (`chat_service.py`, `notification_service.py`, endpoints) | Dev 2 | 1 week | Task 6,10                                | 5          | 5        |
+| 13     | Enhancements | Add Caching & Analytics modules (`caching.py`, `analytics_service.py`, endpoints) | Dev 1 | 1 week | Task 6,10                                | 5          | 5        |
+| 14     | Stability | Logging, Middleware, Error Handling updates         | Dev 2       | 1 week   | Task 4                                   | 6          | 6        |
+| 15     | Testing | Write Pytest tests for auth, user, listings          | Dev 1       | 1 week   | Task 8,9,10                              | 6          | 6        |
+| 16     | Testing | Write remaining tests & achieve coverage             | Dev 2       | 1 week   | Task 12,13                               | 6          | 6        |
+| 17     | DevOps | Docker setup & containerization                       | Dev 1       | 1 week   | Task 1-16                                | 6          | 6        |
+| 18     | DevOps | Deployment to staging/production                      | Dev 2       | 1 week   | Task 17                                  | 7          | 7        |
