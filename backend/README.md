@@ -116,7 +116,7 @@ app/
 └── README.md
 ```
 
-# 📘 Module-Level Documentation
+## 2 📘 Module-Level Documentation
 
 ---
 
@@ -222,3 +222,42 @@ Pytest test cases:
 | Containerization | Docker                   |
 | Deployment       | Nginx + Gunicorn         |
 | CI/CD            | GitHub Actions           |
+
+## 📋 5. To-Do / Deliverables & Schedule
+
+| Phase | Deliverable                                     | Owner       | Estimated Timeline |
+|-------|------------------------------------------------|------------|-----------------|
+| 1     | Initialize FastAPI app & main.py               | Backend Dev | Week 1          |
+| 1     | Setup core/config, security, jwt               | Backend Dev | Week 1          |
+| 2     | Create models & schemas (User, Broker, Listing)| Backend Dev | Week 2          |
+| 2     | Setup DB migrations & seed data                | Backend Dev | Week 2          |
+| 3     | Implement Auth service & endpoints             | Backend Dev | Week 3          |
+| 3     | Implement User CRUD service & endpoints        | Backend Dev | Week 3          |
+| 4     | Implement Listing, Vehicle, Property services | Backend Dev | Week 4          |
+| 4     | Integrate Payment gateway service              | Backend Dev | Week 4          |
+| 5     | Add Chat & Notification modules                | Backend Dev | Week 5          |
+| 5     | Add Caching & Analytics modules                | Backend Dev | Week 5          |
+| 6     | Logging, Middleware, Error Handling            | Backend Dev | Week 6          |
+| 6     | Write Tests & achieve Pytest coverage          | QA / Dev    | Week 6          |
+| 7     | Docker setup & containerization                | DevOps      | Week 6          |
+| 7     | Deployment to staging/production               | DevOps      | Week 7          |
+
+## 📋 5. To-Do / Deliverables & Schedule
+
+| Phase | Deliverable                                     | Owner       | Estimated Timeline |
+|-------|------------------------------------------------|------------|-----------------|
+| 1     | Initialize FastAPI app & main.py               | Backend Dev | Week 1          |
+| 1     | Setup core/config, security, jwt               | Backend Dev | Week 1          |
+| 2     | Create models & schemas (User, Broker, Listing)| Backend Dev | Week 2          |
+| 2     | Setup DB migrations & seed data                | Backend Dev | Week 2          |
+| 3     | Implement Auth service & endpoints             | Backend Dev | Week 3          |
+| 3     | Implement User CRUD service & endpoints        | Backend Dev | Week 3          |
+| 4     | Implement Listing, Vehicle, Property services | Backend Dev | Week 4          |
+| 4     | Integrate Payment gateway service              | Backend Dev | Week 4          |
+| 5     | Add Chat & Notification modules                | Backend Dev | Week 5          |
+| 5     | Add Caching & Analytics modules                | Backend Dev | Week 5          |
+| 6     | Logging, Middleware, Error Handling            | Backend Dev | Week 6          |
+| 6     | Write Tests & achieve Pytest coverage          | QA / Dev    | Week 6          |
+| 7     | Docker setup & containerization                | DevOps      | Week 6          |
+| 7     | Deployment to staging/production               | DevOps      | Week 7          |
+
