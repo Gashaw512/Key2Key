@@ -1,3 +1,25 @@
+# 🚀 Key2Key Backend (FastAPI)
+
+This is the backend service for **Key2Key**, built with **FastAPI**, **SQLModel**, and **PostgreSQL**, designed for scalability, security, and performance.
+
+---
+
+## ⚙️ 1. Environment Setup
+
+### 🧩 Create and activate a virtual environment
+
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate (macOS/Linux)
+source .venv/bin/activate
+
+# Activate (Windows PowerShell)
+.\.venv\Scripts\Activate.ps1
+```
+
+
 # 🏗️ Project Architecture & Roadmap
 
 A professional, scalable FastAPI project structure with modular services, APIs, and testing, ready for production-grade development.
