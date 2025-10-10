@@ -48,7 +48,7 @@ Paste the generated key into your .env file.
 Start the FastAPI development server:
 ```bash
 uvicorn app.main:app --reload
-```bash
+```
 ### Access Points
 
 The API will now be accessible at `http://127.0.0.1:8000`.
