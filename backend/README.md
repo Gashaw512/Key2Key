@@ -1,15 +1,18 @@
 # 🚀 Key2Key Backend (FastAPI)
 
-This is the backend service for **Key2Key**, built with **FastAPI**, **SQLModel**, and **PostgreSQL**, designed for scalability, security, and performance.
+The **Key2Key Backend** is a production-grade service built using **FastAPI**, **SQLModel**, and **PostgreSQL**.  
+It is architected for **scalability**, **security**, and **performance**, powering the core logic of the Key2Key ecosystem.
 
 ---
 
-## ⚙️ 1. Environment Setup
+## 🛠️ Getting Started
 
-### 🧩 Create and activate a virtual environment
+### 1. Environment Setup
+
+Begin by creating and activating a dedicated Python virtual environment to manage dependencies.
 
 ```bash
-# Create virtual environment
+# Create a virtual environment
 python -m venv .venv
 
 # Activate (macOS/Linux)
@@ -17,8 +20,77 @@ source .venv/bin/activate
 
 # Activate (Windows PowerShell)
 .\.venv\Scripts\Activate.ps1
+
+```
+### 2. Install Dependencies
+
+Install the required packages using **pip**.
+
+```bash
+pip install -r requirements.txt
 ```
 
+### 3. Configuration
+
+Configure the service by setting up necessary environment variables in a local `.env` file.
+
+First, copy the example file:
+
+```bash
+cp .env.example .env
+```
+Then edit .env and replace SECRET_KEY with a secure token:
+```bash
+python -c "import secrets; print(secrets.token_urlsafe(32))"
+```
+Paste the generated key into your .env file.
+###  🧠 4. Running the Application
+Start the FastAPI development server:
+```bash
+uvicorn app.main:app --reload
+```bash
+### Access Points
+
+The API will now be accessible at `http://127.0.0.1:8000`.
+
+| Documentation | URL |
+| :--- | :--- |
+| **Swagger UI** (Interactive Docs) | `http://127.0.0.1:8000/docs` |
+| **ReDoc** (Formal Docs) | `http://127.0.0.1:8000/redoc` |
+
+## 🔒 Authentication Flow Testing
+
+Follow these steps to test the user registration and JWT token retrieval.
+
+### Step 1: Register a User
+
+Execute a `POST` request to the registration endpoint with the desired user details.
+
+`POST /api/v1/auth/register`
+
+Example Request Body (JSON):
+
+```json
+{
+  "full_name": "Gashaw",
+  "email": "you@example.com",
+  "password": "Str0ngPass!"
+}
+```
+### Step 2: Log In and Get a Token
+
+After successful registration, perform a login request using the credentials.
+
+**Note:** FastAPI's default login uses `application/x-www-form-urlencoded` data (form data), not JSON.
+
+Example Form Data:
+
+| Key | Value |
+| :--- | :--- |
+| `username` | `you@example.com` |
+| `password` | `Str0ngPass!` |
+
+A successful login will return a **JWT Access Token** that must be included in the `Authorization` header of subsequent protected requests (e.g., `Authorization: Bearer <YOUR_JWT_TOKEN>`).
 
 # 🏗️ Project Architecture & Roadmap
 
