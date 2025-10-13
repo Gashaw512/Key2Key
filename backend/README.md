@@ -42,9 +42,9 @@ Once PostgreSQL is installed, you need to start the service and set up the datab
 6. **Create User and Database**
    
    ```bash
-   CREATE USER gashaw WITH PASSWORD '1234';
-   CREATE DATABASE key2key WITH OWNER gashaw;
-   GRANT ALL PRIVILEGES ON DATABASE key2key TO gashaw;
+   CREATE USER your_user_name WITH PASSWORD 'your_password';
+   CREATE DATABASE key2key WITH OWNER your_user_name;
+   GRANT ALL PRIVILEGES ON DATABASE key2key TO your_user_name;
    ```
 
 ### 3. Environment Setup
