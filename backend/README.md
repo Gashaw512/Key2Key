@@ -21,6 +21,30 @@ To install PostgreSQL on Ubuntu, run:
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 ```
+### 2. Starting PostgreSQL
+
+Once PostgreSQL is installed, you need to start the service and set up the database.
+
+1. **Start PostgreSQL Service**:
+
+   ```bash
+   sudo service postgresql start
+   ```
+2. **Check PostgresQL Status**:
+   ```bash
+   sudo service postgresql status
+   ```
+4. **Access PostgresQL Shell**:
+   ```bash
+   sudo -i -u postgres
+   psql
+   ```
+6. **Create User and Database**
+   ```bash
+   CREATE USER gashaw WITH PASSWORD '1234';
+   CREATE DATABASE key2key WITH OWNER gashaw;
+   GRANT ALL PRIVILEGES ON DATABASE key2key TO gashaw;
+   ```
 
 ### 2. Environment Setup
 
