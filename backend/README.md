@@ -40,13 +40,14 @@ Once PostgreSQL is installed, you need to start the service and set up the datab
    psql
    ```
 6. **Create User and Database**
+   
    ```bash
    CREATE USER gashaw WITH PASSWORD '1234';
    CREATE DATABASE key2key WITH OWNER gashaw;
    GRANT ALL PRIVILEGES ON DATABASE key2key TO gashaw;
    ```
 
-### 2. Environment Setup
+### 3. Environment Setup
 
 Begin by creating and activating a dedicated Python virtual environment to manage dependencies.
 
@@ -61,7 +62,7 @@ source .venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 
 ```
-### 3. Install Dependencies
+### 4. Install Dependencies
 
 Install the required packages using **pip**.
 
@@ -69,7 +70,7 @@ Install the required packages using **pip**.
 pip install -r requirements.txt
 ```
 
-### 4. Configuration
+### 5. Configuration
 
 Configure the service by setting up necessary environment variables in a local `.env` file.
 
