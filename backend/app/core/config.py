@@ -17,21 +17,23 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = Field(..., description="PostgreSQL database name")
 
     @property
-    def SQLALCHEMY_DATABASE_URL(self) -> str:
-        """Construct the database connection URL."""
-        # SQLModel is flexible, but for Alembic migrations, we use standard SQLAlchemy URL
+    def SYNC_DATABASE_URL(self) -> str:
+        """Standard URL for synchronous tools like Alembic."""
         return (
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@"
             f"{self.POSTGRES_SERVER}/{self.POSTGRES_DB}"
         )
+        
+    @property
+    def ASYNC_DATABASE_URL(self) -> str:
+        """Async URL with the 'asyncpg' driver for application use."""
+        return (
+            f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@"
+            f"{self.POSTGRES_SERVER}/{self.POSTGRES_DB}"
+        )
 
-    # JWT Authentication Settings
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7
     ALGORITHM: str = "HS256"
-
-    # Optional: Redis Caching
-    REDIS_HOST: Optional[str] = None
-    REDIS_PORT: Optional[int] = 6379
 
     model_config = SettingsConfigDict(
         env_file=".env",

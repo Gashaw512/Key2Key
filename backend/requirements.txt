@@ -4,6 +4,7 @@ anyio==4.11.0
 apturl==0.5.2
 asgiref==3.8.1
 async-timeout==5.0.1
+asyncpg==0.30.0
 backports.tarfile==1.2.0
 bcrypt==5.0.0
 blinker==1.4
@@ -88,6 +89,8 @@ poetry-core==1.9.1
 poetry-plugin-export==1.8.0
 prompt_toolkit==3.0.50
 protobuf==3.12.4
+psycopg==3.2.10
+psycopg-binary==3.2.10
 psycopg2-binary==2.9.11
 ptyprocess==0.7.0
 pyasn1==0.6.1
@@ -111,6 +114,8 @@ python-dateutil==2.8.1
 python-debian==0.1.43+ubuntu1.1
 python-dotenv==1.1.1
 python-jose==3.5.0
+python-json-logger==4.0.0
+python-multipart==0.0.20
 pytz==2022.1
 pyusb==1.2.1.post1
 pyxdg==0.27
