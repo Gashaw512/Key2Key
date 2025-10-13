@@ -7,7 +7,47 @@ It is architected for **scalability**, **security**, and **performance**, poweri
 
 ## 🛠️ Getting Started
 
-### 1. Environment Setup
+
+### 1. Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- **Python 3.8+**
+- **PostgreSQL** (if using PostgreSQL)
+
+To install PostgreSQL on Ubuntu, run:
+
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+### 2. Starting PostgreSQL
+
+Once PostgreSQL is installed, you need to start the service and set up the database.
+
+1. **Start PostgreSQL Service**:
+
+   ```bash
+   sudo service postgresql start
+   ```
+2. **Check PostgresQL Status**:
+   ```bash
+   sudo service postgresql status
+   ```
+4. **Access PostgresQL Shell**:
+   ```bash
+   sudo -i -u postgres
+   psql
+   ```
+6. **Create User and Database**
+   
+   ```bash
+   CREATE USER your_user_name WITH PASSWORD 'your_password';
+   CREATE DATABASE key2key WITH OWNER your_user_name;
+   GRANT ALL PRIVILEGES ON DATABASE key2key TO your_user_name;
+   ```
+
+### 3. Environment Setup
 
 Begin by creating and activating a dedicated Python virtual environment to manage dependencies.
 
@@ -22,7 +62,7 @@ source .venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 
 ```
-### 2. Install Dependencies
+### 4. Install Dependencies
 
 Install the required packages using **pip**.
 
@@ -30,7 +70,7 @@ Install the required packages using **pip**.
 pip install -r requirements.txt
 ```
 
-### 3. Configuration
+### 5. Configuration
 
 Configure the service by setting up necessary environment variables in a local `.env` file.
 
@@ -44,7 +84,7 @@ Then edit .env and replace SECRET_KEY with a secure token:
 python -c "import secrets; print(secrets.token_urlsafe(32))"
 ```
 Paste the generated key into your .env file.
-###  🧠 4. Running the Application
+###  🧠 5. Running the Application
 Start the FastAPI development server:
 ```bash
 uvicorn app.main:app --reload
