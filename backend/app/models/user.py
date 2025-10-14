@@ -16,6 +16,7 @@ from .vehicle import VehicleListing
 from .payment import Transaction
 from .review import Review
 from .chat import ChatThread
+from .audit_log import AuditLog
 
 # --- USER MODELS (Simplified for clarity) ---
 
@@ -56,6 +57,23 @@ class User(UserBase, table=True):
     # One-to-Many: Chat threads created/participated in
     chat_threads: List["ChatThread"] = Relationship(back_populates="participants") # Assuming many-to-many through another table
 
+    audit_logs: List["AuditLog"] = Relationship(back_populates="user")
+
 
 # --- PYDANTIC SCHEMAS (UserCreate, UserRead, UserUpdate remain as defined) ---
 # ... (UserCreate, UserRead, UserUpdate logic here) ...
+
+# --- PYDANTIC SCHEMAS ---
+class UserRead(UserBase):
+    id: uuid.UUID
+
+
+class UserCreate(UserBase):
+    password: str
+
+
+class UserUpdate(SQLModel):
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    role: Optional[UserRole] = None
+    is_active: Optional[bool] = None
