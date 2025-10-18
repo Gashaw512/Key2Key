@@ -59,7 +59,7 @@ class BrokerProfileCreate(BrokerProfileBase):
 
 class BrokerProfileRead(BrokerProfileBase):
     id: uuid.UUID
-    user_id: uuid.UUID
+    user_id: Optional[uuid.UUID] = None
 
 class BrokerProfileUpdate(SQLModel):
     license_number: Optional[str] = None

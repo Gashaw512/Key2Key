@@ -11,6 +11,7 @@ from .endpoints import (
     healthcheck, 
     users, 
     auth, 
+    brokers,
     properties  # Will add later
 )
 
@@ -22,6 +23,7 @@ routers = [
     (healthcheck.router, "", ["health"]),
     (auth.router, "/auth", ["auth"]),
     (users.router, "/users", ["users"]),
+    (brokers.router, "/broker", ["broker"]),
     # (properties.router, "/properties", ["properties"]),  # Add when ready
 ]
 
