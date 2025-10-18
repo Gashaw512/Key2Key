@@ -1,12 +1,44 @@
 # app/api/v1/router.py
+"""
+Main API router with modular endpoint inclusion.
+"""
 
 from fastapi import APIRouter
-from .endpoints import healthcheck 
-# from .endpoints import user_endpoints # Future endpoint import
+from app.core.config import settings
 
-# Initialize the main router for API v1
+# Import endpoints
+from .endpoints import (
+    healthcheck, 
+    users, 
+    auth, 
+    properties  # Will add later
+)
+
+# Main API router
 api_router = APIRouter()
 
-# --- INCLUDE ENDPOINTS ---
-api_router.include_router(healthcheck.router) 
-# api_router.include_router(user_endpoints.router, prefix="/users", tags=["Users"])
+# Include routers with proper prefixes and tags
+routers = [
+    (healthcheck.router, "", ["health"]),
+    (auth.router, "/auth", ["auth"]),
+    (users.router, "/users", ["users"]),
+    # (properties.router, "/properties", ["properties"]),  # Add when ready
+]
+
+for router, prefix, tags in routers:
+    api_router.include_router(
+        router, 
+        prefix=prefix, 
+        tags=tags,
+        dependencies=[]  
+    )
+
+# Version info endpoint
+@api_router.get("/version")
+async def api_version():
+    """API version information."""
+    return {
+        "version": settings.VERSION,
+        "environment": settings.ENVIRONMENT,
+        "api_prefix": settings.API_V1_STR
+    }
