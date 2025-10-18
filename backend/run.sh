@@ -1,12 +1,4 @@
 #!/usr/bin/env bash
-# ========================================
-# 🚀 Key2Key Backend Run Script
-# ========================================
-# Purpose: Activate environment, check prerequisites, and start FastAPI with Uvicorn.
-# Usage: ./run.sh
-# ========================================
-
-#!/usr/bin/env bash
 # =======================================================
 # 🚀 Key2Key Backend Run Script
 # =======================================================
