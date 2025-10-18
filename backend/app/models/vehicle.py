@@ -9,8 +9,8 @@ import uuid
 
 # --- Local Imports ---
 from .enums import ListingStatus # Uses the general ListingStatus enum
-from .user import User  # Used for type hinting the 'owner' relationship
-from .payment import Transaction # Used for type hinting the 'transactions' relationship
+# from .user import User  # Used for type hinting the 'owner' relationship
+# from .payment import Transaction # Used for type hinting the 'transactions' relationship
 
 
 # ----------------------------------------------------------------------
@@ -50,11 +50,11 @@ class VehicleListing(VehicleListingBase, table=True):
     )
     
     # Foreign Key to User
-    owner_id: uuid.UUID = Field(foreign_key="user.id", index=True)
+    owner_id: uuid.UUID = Field(foreign_key="users.id", index=True)
 
     # --- RELATIONSHIPS ---
     # Many-to-One: The listing belongs to one owner
-    owner: User = Relationship(back_populates="vehicle_listings")
+    owner: "User" = Relationship(back_populates="vehicle_listings")
     
     # One-to-Many: The listing can be part of many transactions
     transactions: List["Transaction"] = Relationship(back_populates="vehicle_listing")

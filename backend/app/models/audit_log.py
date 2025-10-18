@@ -7,7 +7,7 @@ from datetime import datetime
 import uuid
 
 # --- Local Imports ---
-from .user import User # Used for the optional Relationship
+# from .user import User
 
 # ----------------------------------------------------------------------
 # 1. Audit Log Base Model (For API Schemas)
@@ -16,10 +16,10 @@ class AuditLogBase(SQLModel):
     """Base schema for the Audit Log records."""
     
     # Linkage to the user who performed the action (optional for system/anonymous actions)
-    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="user.id", index=True)
+    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="users.id", index=True)
     
     # Action details
-    action: str = Field(index=True, sa_column=Column("action", TEXT)) # e.g., 'USER_CREATED', 'LISTING_UPDATED'
+    action: str = Field(sa_column=Column("action", TEXT, index=True)) # e.g., 'USER_CREATED', 'LISTING_UPDATED'
     resource_type: str = Field(description="The model/table being affected, e.g., 'User', 'PropertyListing'")
     resource_id: Optional[str] = Field(default=None, index=True, description="The UUID of the affected resource (stored as string)")
     
@@ -52,7 +52,7 @@ class AuditLog(AuditLogBase, table=True):
     )
     
     # Relationship to User (optional, and usually not back-populated to User for performance)
-    user: Optional["User"] = Relationship(back_populates="audit_logs")
+    user: "User" = Relationship(back_populates="audit_logs")
 
 
 # ----------------------------------------------------------------------

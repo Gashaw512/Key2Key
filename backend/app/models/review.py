@@ -1,44 +1,67 @@
-# app/models/review.py
-
 from typing import Optional
-from sqlmodel import Field, SQLModel, Relationship, Column
+from sqlmodel import Field, SQLModel, Relationship
+from sqlalchemy import text, Column as SAColumn, ForeignKey
+from sqlalchemy.dialects.postgresql import UUID, TEXT
 from datetime import datetime
-from sqlalchemy import TEXT, Integer
 import uuid
 
-# Local imports
-from .user import User
-
-
+# --- REVIEW BASE ---
 class ReviewBase(SQLModel):
-    # Linkage fields (FKs defined in the User model to prevent circular import errors here)
-    reviewer_id: uuid.UUID = Field(foreign_key="user.id", index=True, description="User who gave the review")
-    target_user_id: uuid.UUID = Field(foreign_key="user.id", index=True, description="User who is being reviewed")
-    
-    # Content fields
-    rating: int = Field(sa_column=Column("rating", Integer), le=5, ge=1) # Integer column with constraints
-    comment: Optional[str] = Field(default=None, sa_column=Column("comment", TEXT))
-    
-    # Metadata
-    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-
-
-class Review(ReviewBase, table=True):
-    id: Optional[uuid.UUID] = Field(
-        default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False
+    # The user giving the review (the 'reviewer')
+    reviewer_id: uuid.UUID = Field(
+        sa_column=SAColumn(
+            UUID(as_uuid=True),
+            ForeignKey("users.id", ondelete="CASCADE"),
+            index=True
+        )
     )
+    # The user receiving the review (the 'target_user')
+    target_user_id: uuid.UUID = Field(
+        sa_column=SAColumn(
+            UUID(as_uuid=True),
+            # Note: We must specify primaryjoin explicitly on the User model,
+            # but the FK is still necessary here.
+            ForeignKey("users.id", ondelete="CASCADE"),
+            index=True
+        )
+    )
+    rating: int = Field(ge=1, le=5) # Assuming a 1-5 rating
+    comment: Optional[str] = Field(default=None, sa_column=SAColumn(TEXT))
+    created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    # --- RELATIONSHIPS (Requires specific joins/foreign_keys kwargs) ---
-    reviewer: User = Relationship(back_populates="reviews_given", 
-                                    sa_relationship_kwargs={"foreign_keys": "[Review.reviewer_id]"})
-    target_user: User = Relationship(back_populates="reviews_received", 
-                                       sa_relationship_kwargs={"foreign_keys": "[Review.target_user_id]"})
+# --- REVIEW MODEL ---
+class Review(ReviewBase, table=True):
+    __tablename__ = "reviews"
+
+    id: Optional[uuid.UUID] = Field(
+        default_factory=uuid.uuid4,
+        sa_column=SAColumn(
+            UUID(as_uuid=True),
+            primary_key=True,
+            server_default=text("gen_random_uuid()")
+        )
+    )
+    
+    # Relationships back to User
+    reviewer: "User" = Relationship(
+        back_populates="reviews_given",
+        sa_relationship_kwargs={"foreign_keys": "[Review.reviewer_id]"}
+    )
+    target_user: "User" = Relationship(
+        back_populates="reviews_received",
+        sa_relationship_kwargs={"foreign_keys": "[Review.target_user_id]"}
+    )
 
 
 # --- PYDANTIC SCHEMAS ---
 class ReviewRead(ReviewBase):
     id: uuid.UUID
-
+    
 class ReviewCreate(ReviewBase):
-    # The reviewer_id will be automatically injected by the service layer from the authenticated user
-    pass
+    # Exclude IDs for creation, as they are often supplied via API context
+    reviewer_id: Optional[uuid.UUID] = None
+    target_user_id: uuid.UUID # Target must always be provided
+    
+class ReviewUpdate(SQLModel):
+    rating: Optional[int] = None
+    comment: Optional[str] = None

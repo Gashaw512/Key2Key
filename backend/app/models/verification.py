@@ -3,7 +3,8 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
 from datetime import datetime, timedelta
-from sqlalchemy import TEXT, DateTime
+from sqlalchemy import TEXT, DateTime, Column
+from enum import Enum
 import uuid
 
 # --- Verification Type Enum ---
@@ -15,7 +16,7 @@ class VerificationType(str, Enum):
 
 class VerificationBase(SQLModel):
     # Linkage (can be user_id OR email/phone for unauthenticated actions like password reset)
-    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="user.id", index=True)
+    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="users.id", index=True)
     target: str = Field(index=True, description="Email address or phone number being verified")
     
     # Content
@@ -25,8 +26,8 @@ class VerificationBase(SQLModel):
     # Status
     expires_at: datetime = Field(
         default_factory=lambda: datetime.utcnow() + timedelta(minutes=30), # Default 30 min expiration
-        nullable=False,
-        sa_column=Column("expires_at", DateTime)
+        
+        sa_column=Column("expires_at", DateTime, nullable=False,)
     )
     is_used: bool = Field(default=False)
     

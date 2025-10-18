@@ -3,6 +3,7 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship, Column, JSON
 from datetime import datetime
+from enum import Enum
 import uuid
 
 # Local imports
@@ -18,7 +19,7 @@ class AnalyticEventType(str, Enum):
 
 class AnalyticsEventBase(SQLModel):
     # Linkage
-    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="user.id", index=True, description="Null for unauthenticated users")
+    user_id: Optional[uuid.UUID] = Field(default=None, foreign_key="users.id", index=True, description="Null for unauthenticated users")
     session_id: Optional[uuid.UUID] = Field(default=None, index=True, description="For tracking anonymous users")
     
     # Content
